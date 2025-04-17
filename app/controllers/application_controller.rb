@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   
   protected
 
+  # 新規登録時に、それぞれのパラメータだけを受け取るように許可している
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name])
   end  
 
 end

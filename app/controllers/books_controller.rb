@@ -1,9 +1,6 @@
 class BooksController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   
-  def index
-  end
-
   def show
   end
 
@@ -25,15 +22,22 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
-      if @book.save
-        flash[:notice] = "Book was successfully created."
-        redirect_to book_path(@book.id)
-      else
-        @user = User.find(current_user.id)
-        @books = Book.page(params[:page])
-          flash.now[:alert] = "Book was make a mistake created."
-          render :index
-      end
+    if @book.save
+      flash[:notice] = "Book was successfully created."
+      redirect_to book_path(@book.id)
+    else
+      @user = User.find(current_user.id)
+      @books = Book.page(params[:page])
+        flash.now[:alert] = "Book was make a mistake created."
+        render :index
+    end
+  end
+
+  # 投稿一覧画面
+  def index
+    @user = User.find(current_user.id)
+    @books = Book.page(params[:page])
+    @book = Book.new
   end
   
   

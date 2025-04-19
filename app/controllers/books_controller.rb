@@ -1,15 +1,6 @@
 class BooksController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   
-  def edit
-  end
-
-  def destroy
-  end
-
-  def update
-  end
-
   # 新規投稿画面
   def new
     @book = Book.new
@@ -60,12 +51,21 @@ class BooksController < ApplicationController
     end
   end
 
+  # 削除処理
+  def destroy
+    book = Book.find(params[:id])  
+    book.destroy 
+    redirect_to '/books' 
+  end
+
   private
 
+  # フォームから送信されるparamsのうち、モデルに渡してよい属性だけを許可する
   def book_params
     params.require(:book).permit(:title, :body)
   end
 
+  # ログイン中のユーザーが、その本の投稿者と一致しているかどうかをチェックする
   def is_matching_login_user
     book = Book.find(params[:id])
     unless book.user.id == current_user.id

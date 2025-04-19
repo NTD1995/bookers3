@@ -1,9 +1,6 @@
 class BooksController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   
-  def show
-  end
-
   def edit
   end
 
@@ -40,6 +37,11 @@ class BooksController < ApplicationController
     @book = Book.new
   end
   
+  # 投稿詳細画面
+  def show
+    @book = Book.find(params[:id])
+    @user = @book.user
+  end
   
   private
 

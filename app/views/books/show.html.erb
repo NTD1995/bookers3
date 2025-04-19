@@ -1,2 +1,43 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <%= render 'books/book', { books: @books, book: @book } %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 100px;">
+              <%= link_to user_path(@user.id) do %>
+                <%= image_tag @user.get_image(100, 100) %>
+              <% end %>
+              <%= link_to @book.user.name, user_path(@user.id) %></td>
+            <td><%= @book.title %></td>
+            <td><%= @book.body %></td>
+            <% if @user.id == current_user.id %>
+              <td>
+                <%= link_to edit_book_path(@book.id), class: "btn btn-success" do %>
+                  Edit
+                <% end %>
+              </td>
+              <td>
+                <%= link_to book_path(@book.id), method: :delete, data: { confirm: 'Are you sure？' }, class: "btn btn-danger" do %>
+                  Destroy
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -43,6 +43,23 @@ class BooksController < ApplicationController
     @user = @book.user
   end
   
+  # 投稿編集画面
+  def edit
+    @book = Book.find(params[:id])
+  end
+
+  # 編集処理
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      flash[:notice] = "Book was successfully editingi."
+      redirect_to book_path(@book.id)  
+    else
+      flash.now[:alert] = "Book was make a mistake editing."
+      render :edit
+    end
+  end
+
   private
 
   def book_params

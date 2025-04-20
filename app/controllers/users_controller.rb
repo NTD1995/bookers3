@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "Book was successfully editingi."
+      flash[:notice] = "Book was successfully editing."
       redirect_to user_path(@user.id)
     else
       flash.now[:alert] = "Book was make a mistake editing."
@@ -26,7 +26,8 @@ class UsersController < ApplicationController
 
   # ユーザー詳細画面
   def show
-    @user = User.find(params[:id]) 
+    @user = User.find(params[:id])
+    @book = Book.new 
   end
 
   private

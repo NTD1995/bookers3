@@ -26,9 +26,11 @@
             <td><%= book.body %></td>
           </tr>
           <% end %>
-          <%= paginate @books %>
         </tbody>
       </table>
+      <div class="d-flex justify-content-center">
+        <%= paginate @books %>
+      </div>
     </div>
   </div>
 </div>

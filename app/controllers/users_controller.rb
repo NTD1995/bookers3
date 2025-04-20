@@ -20,14 +20,12 @@ class UsersController < ApplicationController
 
   # ユーザー一覧画面
   def index
-    # @book = Book.new
     @users = User.page(params[:page])
     @user = current_user
   end
 
   # ユーザー詳細画面
   def show
-    # @book = Book.new
     @user = User.find(params[:id]) 
   end
 

@@ -10,14 +10,20 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
+    @from = params[:from]
     if @book.save
       flash[:notice] = "Book was successfully created."
-      redirect_to book_path(current_user.id)
+      redirect_to book_path(@book.id)
     else
-      @user = User.find(current_user.id)
+      @user = current_user
       @books = Book.page(params[:page])
-        flash.now[:alert] = "Book was make a mistake created."
-        render :index
+      flash.now[:alert] = "Book was make a mistake created."
+      if @from == "book"
+        render 'books/index'
+      else 
+        @users = User.page(params[:page])
+        render 'users/index'
+      end  
     end
   end
 
@@ -30,6 +36,7 @@ class BooksController < ApplicationController
   
   # 投稿詳細画面
   def show
+    @new_book = Book.new
     @book = Book.find(params[:id])
     @user = @book.user
   end

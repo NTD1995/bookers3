@@ -1,5 +1,5 @@
 <h1>New book</h1>
-<%= form_with model: @book, local: true do |f| %>
+<%= form_with model: @book, url: books_path(from: from), local: true do |f| %>
   <div class="form-group">
     <h4>Title</h4>
     <%= f.text_field :title, class: "form-control" %>

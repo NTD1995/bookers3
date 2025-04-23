@@ -8,10 +8,17 @@ class BookCommentsController < ApplicationController
     redirect_to book_path(book_comment)
   end
 
+  # コメント削除処理
+  def destroy
+    comment = current_user.book_comments.find(params[:id])
+    comment.destroy
+    redirect_to book_path(comment.book)
+  end
+
   private
 
   def book_comment_params
     params.require(:book_comment).permit(:comment)
   end  
-  
+
 end

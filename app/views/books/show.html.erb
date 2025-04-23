@@ -12,6 +12,7 @@
             <th>Image</th>
             <th>Title</th>
             <th>Opinion</th>
+            <th>Comment count</th>
           </tr>
         </thead>
         <tbody>
@@ -20,10 +21,12 @@
               <%= link_to user_path(@user.id) do %>
                 <%= image_tag @user.get_image(100, 100) %>
               <% end %>
-              <%= link_to @book.user.name, user_path(@user.id) %></td>
+              <%= link_to @book.user.name, user_path(@user.id) %>
+            </td>
             <td><%= @book.title %></td>
             <td><%= @book.body %></td>
             <% if @user.id == current_user.id %>
+              <td><%= @book.book_comments.count %></td>
               <td>
                 <%= link_to edit_book_path(@book.id), class: "btn btn-success" do %>
                   Edit
@@ -38,6 +41,36 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="mt-4">
+        <h3>Comment list</h3>
+        <% @book.book_comments.each do |book_comment| %>
+          <div class="p-2 mb-2 ">
+            <div class="mb-2 d-flex flex-column align-items-start">
+              <%= image_tag book_comment.user.get_image(100, 100), class: "me-2" %>
+              <%= link_to book_comment.user.name, user_path(book_comment.user) %>
+            </div>
+            <div class="comment-text" style="word-break: break-word; white-space: pre-wrap;"><%= book_comment.comment %></div>
+            <div class="text-muted ms-2"><%= book_comment.created_at.strftime('%Y/%m/%d %H:%M') %></div>
+            <% if book_comment.user == current_user %>
+              <div class="mt-2">
+                <%#= link_to "削除", book_book_comment_path(@book, book_comment), method: :delete, data: { confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-4">
+        <h3>Comment input field</h3>
+        <%= form_with model: [@book, @book_comment], local: true do |f| %>
+          <div class="mb-3">
+            <%= f.text_area :comment, rows: 4, placeholder: "コメントをここに", class: "form-control" %>
+          </div>
+          <%= f.submit "To comment", class: "btn btn-primary mb-4" %>
+        <% end %>
+      </div>
+
     </div>
-  </div>
-</div>
+  </div>    
+</div> 

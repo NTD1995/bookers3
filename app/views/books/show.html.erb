@@ -23,8 +23,8 @@
               <% end %>
               <%= link_to @book.user.name, user_path(@user.id) %>
             </td>
-            <td><%= @book.title %></td>
-            <td><%= @book.body %></td>
+            <td style="word-break: break-word;"><%= @book.title %></td>
+            <td style="word-break: break-word;"><%= @book.body %></td>
             <% if @user.id == current_user.id %>
               <td><%= @book.book_comments.count %></td>
               <td>

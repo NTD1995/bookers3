@@ -44,6 +44,9 @@
                     <i class="fa-solid fa-right-from-bracket"></i>Log out
                   <% end%>
                 </li>
+                <li>
+                  <%= render 'searches/form' %>           
+                </li>                
               <% else %>
                 <li>
                   <%= link_to root_path, class: "text-white nav-link" do %>

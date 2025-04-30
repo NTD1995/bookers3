@@ -11,4 +11,17 @@ class Book < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+  # Bookモデルのcontentカラムに対して検索
+  def self.search_for(content, method)
+    if method == 'perfect'
+      Book.where(content: content)
+    elsif method == 'forward'
+      Book.where('content LIKE ?', content + '%')
+    elsif method == 'backward'
+      Book.where('content LIKE ?', '%' + content)
+    else
+      Book.where('content LIKE ?', '%' + content + '%')
+    end
+  end  
 end

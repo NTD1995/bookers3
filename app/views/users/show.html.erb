@@ -12,6 +12,8 @@
             <th>Image</th>
             <th>Title</th>
             <th>Opinion</th>
+            <th>Comment count</th>
+            <th>Favorite count</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +24,8 @@
             <% end %></td>
             <td style="word-break: break-word;"><%= link_to book.title, book_path(book.id) %></td> 
             <td style="word-break: break-word;"><%= book.body %></td>
+            <td><%= book.book_comments.count %></td>
+            <td><%= render 'favorites/btn', book: book %></td>
           </tr>
           <% end %>
         </tbody>

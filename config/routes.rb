@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end  
   get "search" => "searches#search"
-  resources :users, only: [:index,:show,:edit,:update] 
-  resources :messages, only: [:create]
-  resources :rooms, only: [:create, :show]  
+  resources :rooms, only: [:create, :show] do      
+    resources :messages, only: [:create]
+  end    
 end

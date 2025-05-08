@@ -3,16 +3,20 @@ class MessagesController < ApplicationController
     if Entry.where(user_id: current_user.id, room_id: params[:message][:room_id]).present?
       @message = Message.new(message_params)
       @message.user_id = current_user.id
-      @message.save
+      if @message.save
+        render :create
+      else
+        render :validater, status: :unprocessable_entity
+      end
     else
-      flash[:alert] = "メッセージ送信に失敗しました。"
+      render :validater, status: :unprocessable_entity 
     end
-    render :validater unless @message.save
   end
 
   private
 
   def message_params
     params.require(:message).permit(:user_id, :room_id, :content)
-  end  
+  end
+
 end

@@ -1,7 +1,3 @@
-$('.chats').append(`
-    <div class="chat-fukidashi" style='text-align: right;'>
-      <strong><%= j @message.content %></strong><br>
-      ${'<%= created_at %>'}
-    </div>
-`)
 $('input[type=text]').val("")
+
+$('.chats').append("<p style='text-align: right;'><%= @message.content %></p>");

@@ -30,8 +30,14 @@ class BooksController < ApplicationController
   # 投稿一覧画面
   def index
     @user = User.find(current_user.id)
-    @books = Book.page(params[:page])
     @book = Book.new
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
+    sorted_books = Book.all.sort { |a, b|
+      b.favorites.where(created_at: from...to).size <=>
+      a.favorites.where(created_at: from...to).size
+    }
+    @books = Kaminari.paginate_array(sorted_books).page(params[:page])
   end
   
   # 投稿詳細画面

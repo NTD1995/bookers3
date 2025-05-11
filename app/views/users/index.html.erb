@@ -22,7 +22,23 @@
             <td><%= user.name %></td>
             <td><%= user.followeds.count %></td>
             <td><%= user.followers.count %></td>
-            <td><%= render "relationships/btn", user: user %></td> 
+            <td>
+              <%= render "relationships/btn", user: user %>
+
+              <% if user != current_user && current_user.following?(user) && user.following?(current_user) %>
+                <% shared_room = current_user.entries.joins(:room).merge(Room.joins(:entries).where(entries: { user_id: user.id })).first %>
+                
+                <% if shared_room.present? %>
+                  <%= link_to "メッセージへ", room_path(shared_room.room), class: "btn btn-primary mt-3" %>
+                <% else %>
+                  <%= form_with url: rooms_path, method: :post do |f| %>
+                    <%= hidden_field_tag "entry[user_id]", user.id %>
+                    <%= f.submit "メッセージを始める", class: "btn btn-primary mt-3" %>
+                  <% end %>
+                <% end %>
+              <% end %>             
+
+            </td> 
             <td><%= link_to "Show", user_path(user.id) %></td>
           </tr>
           <% end %>

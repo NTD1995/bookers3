@@ -14,6 +14,7 @@
             <th>Opinion</th>
             <th>Comment count</th>
             <th>Favorite count</th>
+            <th>View count</th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
             <td style="word-break: break-word;"><%= @book.body %></td>
             <td><%= @book.book_comments.count %></td>
             <td><%= render 'favorites/btn', book: @book %></td>
+            <td><%= @book.view_counts.count %></td>
             <% if @user.id == current_user.id %>
               <td>
                 <%= link_to edit_book_path(@book.id), class: "btn btn-success" do %>

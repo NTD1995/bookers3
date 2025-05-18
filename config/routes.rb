@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get "search" => "searches#search"
   resources :rooms, only: [:create, :show] do      
     resources :messages, only: [:create]
-  end    
+  end
+  resources :groups    
 end

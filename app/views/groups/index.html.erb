@@ -1,7 +1,7 @@
-<div class="container px-5 px-sm-0">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'books/book', {book: @book, user: @user} %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-3">   
+      <%= render 'books/book', { book: @book, user: @user, from: 'groups_index' } %>
     </div>
     <div class="col-md-8 offset-md-1">
       <h2>Groups</h2>

@@ -29,7 +29,34 @@
           </tr>
           <% end %>
         </tbody>
-      </table>
+      </table>  
+
+      <h3><%= @user.name %>が作成したグループ</h3>
+      <% if @user.owned_groups.any? %>
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>Group image</th>
+              <th>Group name</th>
+              <th>Group introduction</th>
+              <th colspan="1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.owned_groups.each do |group| %>
+              <tr>
+                <td><%= image_tag group.get_group_image, size: '50x50' %></td>
+                <td><%= link_to group.name, group_path(group) %></td>
+                <td><%= group.introduction %></td>
+                <td><%= link_to "Show", group_path(group), class: "btn btn-info" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= @user.name %>が作成したグループはありません。</p>
+      <% end %>
+      
       <h3>投稿数の前日比・前週比</h3>
         <div class="table_width">
           <table class='table table-bordered'>

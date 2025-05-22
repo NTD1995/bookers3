@@ -39,6 +39,39 @@
           </tr>
         </tbody>  
       </table>
+
+      <h3>Notification</h3>
+      <% if @group.group_messages.any? %>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Opinion</th>
+              <th>Poster</th>
+              <th>Datetime</th>
+              <% if @group.owner_id == current_user.id %>
+                <th></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @group.group_messages.order(created_at: :desc).each do |group_message| %>
+              <tr>
+                <td><%= group_message.title %></td>
+                <td><%= group_message.body %></td>
+                <td><%= group_message.user.name %></td>
+                <td><%= group_message.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+                <% if @group.owner_id == current_user.id %>
+                  <td><%= link_to "Destroy", group_group_message_path(@group, group_message), method: :delete, data: { confirm: "本当によろしいですか？" }, class: "btn btn-danger btn-sm" %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>このグループからのお知らせはまだありません。</p>
+      <% end %>
+
     </div>
   </div>
 </div> 

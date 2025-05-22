@@ -48,7 +48,12 @@
                 <td><%= image_tag group.get_group_image, size: '50x50' %></td>
                 <td><%= link_to group.name, group_path(group) %></td>
                 <td><%= group.introduction %></td>
-                <td><%= link_to "Show", group_path(group), class: "btn btn-info" %></td>
+                <td><%= link_to "Show", group_path(group), class: "btn btn-info mb-3" %>
+                    <% if group.owner_id == current_user.id %>
+                      <%= link_to "New notification", new_group_group_message_path(group), class: "btn btn-primary ml-2" %>
+                    <% end %> 
+                </td>
+                
               </tr>
             <% end %>
           </tbody>

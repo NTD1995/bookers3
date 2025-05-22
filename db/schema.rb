@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_17_141659) do
+ActiveRecord::Schema.define(version: 2025_05_21_144320) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 2025_05_17_141659) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_favorites_on_book_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "group_messages", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.integer "group_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_messages_on_group_id"
+    t.index ["user_id"], name: "index_group_messages_on_user_id"
   end
 
   create_table "group_users", force: :cascade do |t|
@@ -152,6 +163,8 @@ ActiveRecord::Schema.define(version: 2025_05_17_141659) do
   add_foreign_key "entries", "users"
   add_foreign_key "favorites", "books"
   add_foreign_key "favorites", "users"
+  add_foreign_key "group_messages", "groups"
+  add_foreign_key "group_messages", "users"
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "users"
   add_foreign_key "messages", "rooms"

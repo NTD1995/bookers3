@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
      get "followers" => "relationships#followers", as: "followers"
   	 get "followeds" => "relationships#followeds", as: "followeds"
+     get "daily_posts" => "users#daily_posts"
   end
   resources :books do
     resources :book_comments, only: [:create, :destroy]

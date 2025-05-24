@@ -41,6 +41,7 @@
       </table>
 
       <h3>Notification</h3>
+      <%= link_to "New notification", new_group_group_message_path(@group), class: "btn btn-primary mb-2" %>
       <% if @group.group_messages.any? %>
         <table class="table table-bordered">
           <thead>
@@ -62,7 +63,7 @@
                 <td><%= group_message.user.name %></td>
                 <td><%= group_message.created_at.strftime('%Y/%m/%d %H:%M') %></td>
                 <% if @group.owner_id == current_user.id %>
-                  <td><%= link_to "Destroy", group_group_message_path(@group, group_message), method: :delete, data: { confirm: "本当によろしいですか？" }, class: "btn btn-danger btn-sm" %></td>
+                  <td><%= link_to "Destroy", group_group_message_path(@group, group_message), method: :delete, data: { confirm: "本当によろしいですか？" }, class: "btn btn-danger btn-sm" %></td>  
                 <% end %>
               </tr>
             <% end %>

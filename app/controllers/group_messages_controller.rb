@@ -22,7 +22,7 @@ class GroupMessagesController < ApplicationController
 
   def destroy 
     @group_message.destroy
-    redirect_to group_path(@group), notice: 'お知らせを削除しました。'
+    redirect_to group_path(@group), alert: 'お知らせを削除しました。'
   end
 
   private

@@ -24,6 +24,35 @@
           <label for="inputOpinion">Opinion</label>
           <%= f.text_field :body, class: "form-control", id: "inputOpinion", placeholder: "" %>
         </div>
+        
+        <div class="form-group" id="star">
+          <label for="inputStar">Star</label>
+
+          <% if @book.user == current_user %>
+            <%= f.hidden_field :star, id: :edit_star, class: "form-control" %>
+            <div id="edit_raty"></div>
+
+            <script>
+              $(document).on('turbolinks:load', function() {
+                let elem = document.querySelector('#edit_raty');
+                if (elem == null) return;
+
+                elem.innerHTML = ""
+                let opt = {
+                  starOn: "<%= asset_path('star-on.png') %>",
+                  starOff: "<%= asset_path('star-off.png') %>",
+                  starHalf: "<%= asset_path('star-half.png') %>",
+                  scoreName: 'book[star]',
+                  score: "<%= @book.star %>"
+                };
+                raty(elem, opt);
+              });
+            </script>
+
+          <% else %>
+            <%= render "books/static_rate", book: @book %>
+          <% end %>
+        </div>
 
         <div class="mt-4">
           <%= f.submit "Update Book", class: "btn btn-success" %>

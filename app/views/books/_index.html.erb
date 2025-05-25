@@ -25,7 +25,8 @@
             <td style="word-break: break-word;"><%= book.body %></td>
             <td><%= book.book_comments.count %></td>
             <td><%= render 'favorites/btn', book: book %></td>
-            <td><%= book.view_counts.count %></td>    
+            <td><%= book.view_counts.count %></td>
+            <td><%= render "books/static_rate", book: book %></td>     
           </tr>
           <% end %>
         </tbody>

@@ -82,7 +82,7 @@ class BooksController < ApplicationController
 
   # フォームから送信されるparamsのうち、モデルに渡してよい属性だけを許可する
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :star)
   end
 
   # ログイン中のユーザーが、その本の投稿者と一致しているかどうかをチェックする

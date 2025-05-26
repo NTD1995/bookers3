@@ -29,15 +29,23 @@ class BooksController < ApplicationController
 
   # 投稿一覧画面
   def index
-    @user = User.find(current_user.id)
+    @user = current_user
     @book = Book.new
-    to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    sorted_books = Book.all.sort { |a, b|
-      b.favorites.where(created_at: from...to).size <=>
-      a.favorites.where(created_at: from...to).size
-    }
-    @books = Kaminari.paginate_array(sorted_books).page(params[:page])
+
+    case params[:sort]
+    when 'created_at DESC'
+      books = Book.order(created_at: :desc)
+    when 'star DESC'
+      books = Book.order(star: :desc)
+    else
+      to = Time.current.at_end_of_day
+      from = (to - 6.days).at_beginning_of_day
+      books = Book.all.sort_by { |book| -book.favorites.where(created_at: from...to).count }
+      @books = Kaminari.paginate_array(books).page(params[:page])
+      return
+    end
+
+    @books = books.page(params[:page])
   end
   
   # 投稿詳細画面

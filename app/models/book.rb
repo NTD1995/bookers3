@@ -6,6 +6,7 @@ class Book < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence:true, length: {maximum:200}
+  validates :category, presence: true
 
 
   # 特定のユーザーが投稿をいいねしているか判断

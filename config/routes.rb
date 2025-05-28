@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'tag_searches/search'
   get 'group_messages/new'
   get 'group_messages/create'
   get 'group_messages/destroy'
@@ -22,5 +23,6 @@ Rails.application.routes.draw do
   resources :groups do
     resource :group_users, only: [:create, :destroy]
     resources :group_messages, only: [:new, :create, :destroy] 
-  end    
+  end
+  get "tag_searches/search" => "tag_searches#search"      
 end

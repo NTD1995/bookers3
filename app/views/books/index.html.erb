@@ -10,12 +10,14 @@
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
-            <th></th>
+            <th>Image</th>
             <th>Title</th>
             <th>Opinion</th>
             <th>Comment count</th>
             <th>Favorite count</th>
             <th>View count</th>
+            <th>Star</th>
+            <th>Tag</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +34,11 @@
             <td><%= render 'favorites/btn', book: book %></td>
             <td><%= book.view_counts.count %></td>
             <td><%= render "books/static_rate", book: book %></td>
+            <td>
+              <% if book.category.present? %>
+                <%=link_to book.category,tag_searches_search_path(content: book.category)%>
+              <% end %>
+            </td>
           </tr>
           <% end %>
         </tbody>

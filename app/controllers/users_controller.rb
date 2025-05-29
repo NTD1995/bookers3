@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:update ,:edit]
+  before_action :ensure_guest_user, only: [:edit]
 
   # ユーザー編集画面
   def edit

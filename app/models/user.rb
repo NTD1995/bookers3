@@ -15,7 +15,8 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
   has_many :group_messages, dependent: :destroy 
-  has_many :notifications, dependent: :destroy    
+  has_many :notifications, dependent: :destroy
+  has_many :reviews, dependent: :destroy    
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true , presence: true
   validates :introduction, length: { maximum: 50 }

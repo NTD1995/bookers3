@@ -60,6 +60,7 @@ class BooksController < ApplicationController
         ViewCount.create(user_id: current_user.id, book_id: @book.id)
       end
     end
+    @review = Review.new
   end
   
   # 投稿編集画面

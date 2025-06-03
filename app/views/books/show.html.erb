@@ -53,6 +53,59 @@
           </tr>
         </tbody>
       </table>
+   
+      <div class="mt-4">
+        <h3>Review input field</h3>
+        <% if user_signed_in? %>
+          <%= form_with(model: [@book, @book.reviews.build], local: true) do |f| %>
+     
+            <div>
+              <%= f.label :rating, "Review（1〜5）" %><br>
+              <div class="star-rating">
+                <% (1..5).each do |star| %>
+                  <%= f.radio_button :rating, star, id: "star#{star}" %>
+                  <%= f.label "star#{star}", "★" * star, class: "star" %>
+                <% end %>
+              </div>
+            </div>            
+            <div>
+              <%= f.label :content, "Review content" %><br>
+              <%= f.text_area :content, rows: 5, class: "form-control" %>
+            </div>
+            <div>
+              <%= f.submit "To review", class: "btn btn-primary mt-2" %>
+            </div>
+          <% end %>
+        <% else %>
+          <p>レビューを投稿するにはログインが必要です。</p>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+
+      <div class="mt-4">
+        <h3>Review list</h3>
+        <% @book.reviews.each do |review| %>
+          <div class="review-box">
+            <% if review.user.present? %>
+              <strong><%= review.user.name %></strong> さんの評価：
+            <% end %>
+
+            <% if review.rating.present? %>
+              <%= "★" * review.rating %>
+            <% end %><br>
+
+            <%= simple_format(review.content) %><br>
+
+            <% if review.created_at.present? %>
+              <small><%= review.created_at.strftime('%Y/%m/%d %H:%M') %></small>
+            <% end %>
+
+            <% if review.user == current_user %>
+              <%= link_to "Destroy", book_review_path(@book, review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+            <% end %>
+          </div>
+        <% end %>                
+      </div>
 
       <div class="mt-4">
         <h3>Comment list</h3>

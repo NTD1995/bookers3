@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one_attached :image
-  has_many :books, dependent: :destroy
+  has_many :books, dependent: :destroy, through: :reading_statuses
   has_one_attached :profile_image
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -16,7 +16,8 @@ class User < ApplicationRecord
   has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
   has_many :group_messages, dependent: :destroy 
   has_many :notifications, dependent: :destroy
-  has_many :reviews, dependent: :destroy    
+  has_many :reviews, dependent: :destroy 
+  has_many :reading_statuses   
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true , presence: true
   validates :introduction, length: { maximum: 50 }

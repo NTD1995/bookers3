@@ -1,0 +1,2 @@
+module ReadingStatusesHelper
+end

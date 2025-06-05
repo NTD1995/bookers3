@@ -55,6 +55,23 @@
       </table>
    
       <div class="mt-4">
+        <h3>Reading status</h2>
+        <% current_status = current_user.reading_statuses.find_by(book: @book)&.status %>
+        <% if current_status %>
+          <p>現在のステータス：<strong><%= current_status.humanize %></strong></p>
+        <% else %>
+          <p>現在のステータス：<em>Unregistered</em></p>
+        <% end %>
+        <%= form_with url: book_reading_status_path(@book), method: current_status ? :patch : :post do %>
+          <%= select_tag :status, options_for_select(ReadingStatus.statuses.keys.map { |s| [s.humanize, s] }, selected: current_status) %>
+          <%= submit_tag current_status ? "Change" : "Registration" %>
+        <% end %>
+        <% if current_status %>
+          <%= button_to 'Destroy', book_reading_status_path(@book), method: :delete, data: { confirm: '削除しますか？' } %>
+        <% end %>
+      </div>
+
+      <div class="mt-4">
         <h3>Review input field</h3>
         <% if user_signed_in? %>
           <%= form_with(model: [@book, @book.reviews.build], local: true) do |f| %>

@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one_attached :image
   has_many :reading_statuses 
-  has_many :books, dependent: :destroy, through: :reading_statuses
+  has_many :reading_books, through: :reading_statuses, source: :book
   has_one_attached :profile_image
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -19,7 +19,9 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
-  has_many :bookmarked_books, through: :bookmarks, source: :book  
+  has_many :bookmarked_books, through: :bookmarks, source: :book
+  has_many :posted_books, class_name: 'Book', foreign_key: 'user_id', dependent: :destroy
+  
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true , presence: true
   validates :introduction, length: { maximum: 50 }

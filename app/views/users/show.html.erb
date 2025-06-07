@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @user.books.each do |book| %>
+          <% @user.posted_books.each do |book| %>
           <tr>
             <td style="width: 100px;"><%= link_to user_path(@user.id) do %>
               <%= image_tag @user.get_image(100,100)%>
@@ -30,6 +30,17 @@
           <% end %>
         </tbody>
       </table>  
+
+      <h3>Bookmark list</h3>
+      <% if @bookmarked_books.any? %>
+        <ul>
+          <% @bookmarked_books.each do |book| %>
+            <li><%= link_to book.title, book_path(book) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No bookmark list</p>
+      <% end %>
 
       <h3><%= @user.name %>が作成したグループ</h3>
       <% if @user.owned_groups.any? %>

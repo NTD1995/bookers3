@@ -55,7 +55,16 @@
       </table>
    
       <div class="mt-4">
-        <h3>Reading status</h2>
+        <h3>Bookmark status</h3>
+        <% if current_user.bookmarked_books.include?(@book) %>
+          <%= button_to "ブックマーク解除", book_bookmark_path(@book), method: :delete %>
+        <% else %>
+          <%= button_to "ブックマークする", book_bookmark_path(@book), method: :post %>
+        <% end %>
+      </div>  
+
+      <div class="mt-4">
+        <h3>Reading status</h3>
         <% current_status = current_user.reading_statuses.find_by(book: @book)&.status %>
         <% if current_status %>
           <p>現在のステータス：<strong><%= current_status.humanize %></strong></p>

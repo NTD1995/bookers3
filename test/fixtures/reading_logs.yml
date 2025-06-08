@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  book: one
+  read_on: 2025-06-08
+  note: MyText
+
+two:
+  user: two
+  book: two
+  read_on: 2025-06-08
+  note: MyText

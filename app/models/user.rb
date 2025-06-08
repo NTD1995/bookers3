@@ -21,7 +21,7 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_books, through: :bookmarks, source: :book
   has_many :posted_books, class_name: 'Book', foreign_key: 'user_id', dependent: :destroy
-  
+  has_many :reading_logs, dependent: :destroy
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true , presence: true
   validates :introduction, length: { maximum: 50 }

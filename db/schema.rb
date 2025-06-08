@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_06_100711) do
+ActiveRecord::Schema.define(version: 2025_06_08_063349) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -137,6 +137,17 @@ ActiveRecord::Schema.define(version: 2025_06_06_100711) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "reading_logs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
+    t.date "read_on"
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_reading_logs_on_book_id"
+    t.index ["user_id"], name: "index_reading_logs_on_user_id"
+  end
+
   create_table "reading_statuses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "book_id", null: false
@@ -215,6 +226,8 @@ ActiveRecord::Schema.define(version: 2025_06_06_100711) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "reading_logs", "books"
+  add_foreign_key "reading_logs", "users"
   add_foreign_key "reading_statuses", "books"
   add_foreign_key "reading_statuses", "users"
   add_foreign_key "reviews", "books"

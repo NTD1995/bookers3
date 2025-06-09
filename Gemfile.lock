@@ -158,10 +158,6 @@ GEM
     nokogiri (1.18.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.7-x86_64-darwin)
-      racc (~> 1.4)
     orm_adapter (0.5.0)
     pry (0.15.2)
       coderay (~> 1.1)
@@ -246,6 +242,8 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.1.0)
+    simple_calendar (3.1.0)
+      rails (>= 6.1)
     spring (4.2.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -311,6 +309,7 @@ DEPENDENCIES
   rails (~> 6.1.7, >= 6.1.7.10)
   rspec-rails
   sass-rails (>= 6)
+  simple_calendar
   spring (= 4.2.1)
   sqlite3 (~> 1.4)
   turbolinks (~> 5)

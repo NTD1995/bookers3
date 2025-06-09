@@ -1,0 +1,15 @@
+<h3>読書記録を追加</h3>
+
+<%= form_with model: @reading_log, local: true do |f| %>
+  <div>
+    <%= f.label :book_id, "本のタイトル" %><br>
+    <%= f.collection_select :book_id, Book.all, :id, :title %>
+  </div>
+  <div>
+    <%= f.label :read_on, "読んだ日" %><br>
+    <%= f.date_select :read_on %>
+  </div>
+  <div>
+    <%= f.submit "登録" %>
+  </div>
+<% end %>

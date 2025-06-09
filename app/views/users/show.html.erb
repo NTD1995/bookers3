@@ -29,7 +29,33 @@
           </tr>
           <% end %>
         </tbody>
-      </table>  
+      </table>
+
+      <h3>読書記録</h3>
+      <div class="mb-3">
+        <%= link_to "📅 読書記録カレンダーを見る", reading_logs_path, class: "btn btn-outline-primary mr-2" %>
+        <%= link_to "📝 新しい読書記録を追加", new_reading_log_path, class: "btn btn-outline-success" %>
+      </div>
+
+      <% if current_user.reading_logs.any? %>
+        <h4>これまでの記録一覧</h4>
+        <ul class="list-group mb-3">
+          <% current_user.reading_logs.each do |log| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong><%= log.read_on.strftime('%Y/%m/%d') %></strong> - <%= log.book.title %>
+              </div>
+              <div>
+                <%= link_to "編集", edit_reading_log_path(log), class: "btn btn-sm btn-secondary" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>まだ読書記録がありません。</p>
+      <% end %>
+      
+
 
       <h3>Bookmark list</h3>
       <% if @bookmarked_books.any? %>

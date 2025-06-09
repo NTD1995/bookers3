@@ -1,0 +1,7 @@
+<h3>読書カレンダー</h3>
+<%= month_calendar events: @reading_logs, attribute: :read_on do |date, logs| %>
+  <% logs.each do |log| %>
+    <p><%= link_to log.book.title, book_path(log.book) %></p>
+  <% end %>
+<% end %>
+<%= link_to 'ユーザー詳細に戻る', user_path(current_user), class: 'btn btn-secondary' %>

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'bookmarks/create'
-  get 'bookmarks/destroy'
   root to: "homes#top"
   get"/home/about" => "homes#about" ,as: "about"
   devise_for :users
   resources :users, only: [:edit, :update,:index, :show] do
+    resources :reading_logs, only: [:index]
     resource :relationships, only: [:create, :destroy]
      get "followers" => "relationships#followers", as: "followers"
   	 get "followeds" => "relationships#followeds", as: "followeds"
@@ -29,5 +28,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
   end
-  resources :notifications, only: [:update]        
+  resources :notifications, only: [:update]
+  resources :reading_logs        
 end

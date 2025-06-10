@@ -22,3 +22,19 @@ window.raty = function (elem, opt) {
   raty.init();
   return raty;
 };
+
+document.addEventListener("turbo:load", function () {
+  var calendarEl = document.getElementById("calendar");
+  if (!calendarEl) return;
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: "dayGridMonth",
+    events: "/reading_logs.json",
+    eventClick: function (info) {
+      window.location.href = info.event.url;
+      info.jsEvent.preventDefault(); 
+    },
+  });
+
+  calendar.render();
+});

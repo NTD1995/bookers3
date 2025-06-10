@@ -7,18 +7,19 @@ class ReadingLogsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {
+      format.json do
         render json: @reading_logs.map { |log|
           {
             id: log.id,
             title: log.book.title,
             start: log.read_on,
-            url: reading_log_path(log)
+            url: book_path(log.book) 
           }
         }
-      }
+      end
     end
-  end  
+  end
+
 
   def new
     @reading_log = current_user.reading_logs.new
